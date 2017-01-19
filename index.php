@@ -85,7 +85,7 @@ foreach ($events as $event) {
     $stream = stream_context_create($options);
     $res = json_decode(file_get_contents($api_url, false, $stream));
 
-    return $res->utt;
+    return $res;
   }
 
   // get context from Redis
@@ -93,17 +93,15 @@ foreach ($events as $event) {
   $message = $event->getText();
   $response = chat2($message, $context);
 
-  error_log("取得");
-  error_log($context);
-  error_log($response->context);
-  $redis->set('memory', $response->context);
+  //$redis->set('memory', $response->context);
+  $redis->set('memory', 'メモリー');
   $redis->expire('memory',100);
   //$context = $redis->get('context');
   error_log("-------- message start --------");
-  error_log($message);
-  error_log($context);
+  error_log($response->utt);
+  error_log($response->context);
   error_log("-------- message end --------");
 
-  replyTextMessage($bot, $event->getReplyToken(), $response);
+  replyTextMessage($bot, $event->getReplyToken(), $response->utt);
 }
  ?>
