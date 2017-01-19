@@ -94,7 +94,7 @@ foreach ($events as $event) {
   $response = chat2($message, $context);
 
   //$redis->set('memory', $response->context);
-  $redis->set('memory', 'メモリー');
+  $redis->set('memory', $response->context);
   $redis->expire('memory',100);
   //$context = $redis->get('context');
   error_log("-------- message start --------");
