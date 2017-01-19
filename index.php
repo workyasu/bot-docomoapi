@@ -89,15 +89,15 @@ foreach ($events as $event) {
   }
 
   // get context from Redis
-  $context = $redis->get('context');
+  $context = $redis->get('memory');
   $message = $event->getText();
   $response = chat2($message, $context);
 
   error_log("取得");
   error_log($context);
   error_log($response->context);
-  $redis->set('context', $response->context);
-  $redis->expire('context',100);
+  $redis->set('memory', $response->context);
+  $redis->expire('memory',100);
   //$context = $redis->get('context');
   error_log("-------- message start --------");
   error_log($message);
