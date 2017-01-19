@@ -98,6 +98,7 @@ foreach ($events as $event) {
   $redis->expire('memory',100);
   //$context = $redis->get('context');
   error_log("-------- message start --------");
+  error_log($context);
   error_log($response->utt);
   error_log($response->context);
   error_log("-------- message end --------");
