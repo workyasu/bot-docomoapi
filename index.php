@@ -95,7 +95,7 @@ foreach ($events as $event) {
 
   $redis->set('context', $context);
   $redis->expire('context',100);
-  $context = $redis->get('context');
+  //$context = $redis->get('context');
   error_log("-------- message start --------");
   error_log($message);
   error_log($context);
