@@ -70,7 +70,7 @@ foreach ($events as $event) {
         'utt' => $message,
         'context' => $context,
     );
-    $req_body['context'] = $message;
+    //$req_body['context'] = $message;
 
     $headers = array(
         'Content-Type: application/json; charset=UTF-8',
@@ -85,21 +85,17 @@ foreach ($events as $event) {
     $stream = stream_context_create($options);
     $res = json_decode(file_get_contents($api_url, false, $stream));
 
-    return $res->utt;
+    return $res;
   }
 
   // get context from Redis
-  $context = $redis->get('context');
+  $context = $redis->get('memory');
   $message = $event->getText();
   $response = chat2($message, $context);
 
-  $redis->set('context', $context);
-  $redis->expire('context',100);
-  $context = $redis->get('context');
-  error_log("-------- message start --------");
-  error_log($context);
-  error_log("-------- message end --------");
+  $redis->set('memory', $response->context);
+  $redis->expire('memory',100);
 
-  replyTextMessage($bot, $event->getReplyToken(), $response);
+  replyTextMessage($bot, $event->getReplyToken(), $response->utt);
 }
  ?>
