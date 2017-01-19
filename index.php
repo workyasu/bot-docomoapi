@@ -70,7 +70,7 @@ foreach ($events as $event) {
         'utt' => $message,
         'context' => $context,
     );
-    $req_body['context'] = $message;
+    //$req_body['context'] = $message;
 
     $headers = array(
         'Content-Type: application/json; charset=UTF-8',
