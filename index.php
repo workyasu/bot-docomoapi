@@ -93,7 +93,10 @@ foreach ($events as $event) {
   $message = $event->getText();
   $response = chat2($message, $context);
 
-  $redis->set('context', 'ああ');
+  error_log("取得");
+  error_log($context);
+  error_log($response->context);
+  $redis->set('context', $response->context);
   $redis->expire('context',100);
   //$context = $redis->get('context');
   error_log("-------- message start --------");
